@@ -61,6 +61,13 @@ class CaptureService : Service() {
         mediaFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, iframeInterval)
 
         mediaCodec = MediaCodec.createEncoderByType(mimeType)
+        val codecInfo = mediaCodec.codecInfo
+        Log.d("MediaCodecInfo", "hardware accelerated: ${codecInfo.isHardwareAccelerated}")
+        Log.d("MediaCodecInfo", "software only: ${codecInfo.isSoftwareOnly}")
+        Log.d("MediaCodecInfo", "vendor: ${codecInfo.isVendor}")
+        Log.d("MediaCodecInfo", "encoder: ${codecInfo.isEncoder}")
+        Log.d("MediaCodecInfo", "name: ${codecInfo.name}")
+
         mediaCodec.setCallback(object : MediaCodec.Callback() {
             override fun onInputBufferAvailable(codec: MediaCodec, index: Int) {
                 Log.d("MediaCodec", "onInputBufferAvailable : ${codec.codecInfo}")
